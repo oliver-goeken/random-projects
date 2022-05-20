@@ -1,4 +1,4 @@
-# Random Projects
+# \~Random Projects\~
 This is a collection of small projects that I am working on that are not large enough for their own repository, mostly small scripts.
 
 ## Installation
