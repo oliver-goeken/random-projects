@@ -26,3 +26,7 @@ try:
     with open(location) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
+except PermissionError:
+    print("This program does not have access to that file")
+
+print()
