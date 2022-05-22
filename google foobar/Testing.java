@@ -28,6 +28,8 @@ public class Testing{
                 System.out.println("Choice not recognized!");
             }
         }
+
+        in.close();
     }
 
     public static int[] gearingUpForDestruction(){
@@ -42,21 +44,21 @@ public class Testing{
             int sum = 0;
 
             if(i % 2 == 0){
-                sum += pegs[i];
-            }else{
                 sum -= pegs[i];
+            }else{
+                sum += pegs[i];
             }
 
-            if(i != 0 && i != pegs.length - 1){
+            if(i != 0 && i != (pegs.length - 1)){
                 sum *= 2;
             }
 
             rFinal += sum;
         }
 
-        output[0] = rFinal * -2;
+        output[0] = rFinal * 2;
 
-        if(pegs.length == 2){
+        if(pegs.length % 2 == 0){
             output[1] = 3;
         }
 
@@ -65,7 +67,7 @@ public class Testing{
             output[1] = 1;
         }
 
-        if(output[0] * output[1] <= 0){
+        if(output[0] * output[1] <= 0 || pegs.length <= 1){
             return failed;
         }else{
             return output;
