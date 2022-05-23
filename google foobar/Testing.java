@@ -10,6 +10,7 @@ public class Testing{
             System.out.println("Options: ");
             System.out.println("[G]earing up for destruction: ");
             System.out.println("[B]unny worker locations: ");
+            System.out.println("[BO]mb baby: ");
             System.out.println("[E]xit: ");
             System.out.print("> ");
 
@@ -28,6 +29,10 @@ public class Testing{
                 System.out.println(bunnyWorkerLocations(3, 4));
 
                 break;
+            }else if(choice.toLowerCase().equals("bo")){
+                
+
+                break;
             }else{
                 System.out.println();
                 System.out.println("Choice not recognized!");
@@ -36,6 +41,68 @@ public class Testing{
 
         in.close();
     }
+
+    public static String bombBaby(String x, String y){
+        int m = Integer.parseInt(x);
+        int f = Integer.parseInt(y);
+
+        if(m % 2 == 0 && f % 2 == 0){
+            return "impossible";
+        }else{
+
+        }
+    }
+    private class IntString{
+        int[] val;
+
+        public IntString(String inputStr){
+            int[] inputStrAsArr = inputStr.toCharArray();
+            val = new int[inputStrAsArr.length];
+
+            for(int i = 0; i < val.length; i ++){
+                val[i] = inputStrAsArr[i];
+            }
+        }
+
+        public boolean largerThan(IntString testInt){
+            if(this.size() > testInt.size()){
+                
+            }
+        }
+
+        public int size(){
+            return val.length;
+        }
+
+        public IntString subtract(IntString otherInt){
+            char[] result = new char[this.largerThan(otherInt)?this.size():otherInt.size()];
+
+            // remove empty char array indexes
+        }
+    }
+
+
+    public static String bunnyWorkerLocations(long x, long y){
+        String returnString = "";
+        
+        if(y == 1){
+            returnString = Long.toString(rowAdd(x));
+        }else{
+            returnString = Long.toString(rowAdd(x + y - 2) + x);
+        }
+        
+        return returnString;
+    }
+    private static long rowAdd(long row){
+        long returnInt = 0;
+
+        for(long i = row; i > 0; i --){
+            returnInt += i;
+        }
+
+        return returnInt;
+    }
+
 
     public static int[] gearingUpForDestruction(){
         int[] pegs = {4, 30, 50};
@@ -79,26 +146,6 @@ public class Testing{
         }
     }
 
-    public static String bunnyWorkerLocations(long x, long y){
-        String returnString = "";
-        
-        if(y == 1){
-            returnString = Long.toString(rowAdd(x));
-        }else{
-            returnString = Long.toString(rowAdd(x + y - 2) + x);
-        }
-        
-        return returnString;
-    }
-    private static long rowAdd(long row){
-        long returnInt = 0;
-
-        for(long i = row; i > 0; i --){
-            returnInt += i;
-        }
-
-        return returnInt;
-    }
 
     public static void clearScreen() {  
         System.out.print("\033[H\033[2J");  
