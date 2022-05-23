@@ -64,6 +64,24 @@ public class Testing{
             }
         }
 
+        @Override
+        public boolean equals(Object obj){
+            if(obj == null){
+                return false;
+            }
+
+            if(obj.getClass() != this.getClass()){
+                return false;
+            }
+
+            final IntString other = (IntString) obj;
+            if(this.val != other.val){
+                return false;
+            }
+
+            return true;
+        }
+
         public boolean largerThan(IntString testInt){
             if(this.size() > testInt.size()){
                 
