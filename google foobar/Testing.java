@@ -30,7 +30,10 @@ public class Testing{
 
                 break;
             }else if(choice.toLowerCase().equals("bo")){
-                
+                Testing t = new Testing();
+                IntString test = t.new IntString("12345");
+
+                System.out.println(test.value());
 
                 break;
             }else{
@@ -42,21 +45,28 @@ public class Testing{
         in.close();
     }
 
-    public static String bombBaby(String x, String y){
+    public static void bombBaby(String x, String y){
         int m = Integer.parseInt(x);
         int f = Integer.parseInt(y);
 
         if(m % 2 == 0 && f % 2 == 0){
-            return "impossible";
+            //return "impossible";
         }else{
 
         }
     }
-    private class IntString{
-        int[] val;
+    public class IntString{
+        private int[] val;
 
         public IntString(String inputStr){
-            int[] inputStrAsArr = inputStr.toCharArray();
+            char[] inputStrCharArr = inputStr.toCharArray();
+
+            int[] inputStrAsArr = new int[inputStrCharArr.length];
+
+            for(int i = inputStrCharArr.length - 1; i >= 0 ; i --){
+                inputStrAsArr[inputStrCharArr.length - i - 1] = inputStrCharArr[i];
+            }
+
             val = new int[inputStrAsArr.length];
 
             for(int i = 0; i < val.length; i ++){
@@ -82,20 +92,36 @@ public class Testing{
             return true;
         }
 
-        public boolean largerThan(IntString testInt){
-            if(this.size() > testInt.size()){
-                
+        public String value(){
+            String outputVal = "";
+
+            for(int i = val.length - 1; i >= 0; i --){
+                outputVal += Character.toString(val[i]);
             }
+
+            return outputVal;
         }
 
         public int size(){
             return val.length;
         }
 
-        public IntString subtract(IntString otherInt){
-            char[] result = new char[this.largerThan(otherInt)?this.size():otherInt.size()];
+        public boolean largerThan(IntString otherInt){
+            if(this.size() > otherInt.size()){
+                return true;
+            }else if(this.size() < otherInt.size()){
+                return false;
+            }else{
+                if(this.val[this.val.length - 1] > otherInt.val[otherInt.val.length - 1]){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }
 
-            // remove empty char array indexes
+        public IntString subtract(IntString otherInt){
+            return this;
         }
     }
 
