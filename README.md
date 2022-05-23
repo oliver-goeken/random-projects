@@ -13,4 +13,4 @@ There are provided utility programs for ease of use, including:
 
 ## Projects
 - CSV to txt converter for two-column CSV files
-- Work that I have done on google foobar
+- Google foobar solutions
