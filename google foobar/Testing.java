@@ -9,6 +9,7 @@ public class Testing{
         while (true){
             System.out.println("Options: ");
             System.out.println("[G]earing up for destruction: ");
+            System.out.println("[B]unny worker locations: ");
             System.out.println("[E]xit: ");
             System.out.print("> ");
 
@@ -21,6 +22,10 @@ public class Testing{
             }else if(choice.toLowerCase().equals("g")){
                 int[] output = gearingUpForDestruction();
                 System.out.println(output[0] + ", " + output[1]);
+
+                break;
+            }else if(choice.toLowerCase().equals("b")){
+                System.out.println(bunnyWorkerLocations(3, 4));
 
                 break;
             }else{
@@ -72,6 +77,27 @@ public class Testing{
         }else{
             return output;
         }
+    }
+
+    public static String bunnyWorkerLocations(long x, long y){
+        String returnString = "";
+        
+        if(y == 1){
+            returnString = Long.toString(rowAdd(x));
+        }else{
+            returnString = Long.toString(rowAdd(x + y - 2) + x);
+        }
+        
+        return returnString;
+    }
+    private static long rowAdd(long row){
+        long returnInt = 0;
+
+        for(long i = row; i > 0; i --){
+            returnInt += i;
+        }
+
+        return returnInt;
     }
 
     public static void clearScreen() {  
