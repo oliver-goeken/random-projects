@@ -31,9 +31,8 @@ public class Testing{
                 break;
             }else if(choice.toLowerCase().equals("bo")){
                 Testing t = new Testing();
-                IntString test = t.new IntString("12345");
 
-                System.out.println(test.value());
+                System.out.println(bombBaby("10000001", "5485748"));
 
                 break;
             }else{
@@ -45,14 +44,30 @@ public class Testing{
         in.close();
     }
 
-    public static void bombBaby(String x, String y){
-        int m = Integer.parseInt(x);
-        int f = Integer.parseInt(y);
+    public static String bombBaby(String x, String y){
+        Testing t = new Testing();
+        
+        IntString intX = t.new IntString(x);
+        IntString intY = t.new IntString(y);
+        
+        IntString it = t.new IntString("0");
 
-        if(m % 2 == 0 && f % 2 == 0){
-            //return "impossible";
+        while(intX.isLargerThan(t.new IntString("1")) || intY.isLargerThan(t.new IntString("1"))){
+            it.add(t.new IntString("1"));
+            
+            if(intX.isLargerThan(intY)){
+                intX.subtract(intY);
+            }else if(intY.isLargerThan(intX)){
+                intY.subtract(intX);
+            }else{
+                return "impossible";
+            }
+        }
+        
+        if(intX.isLargerThan(t.new IntString("0")) && intY.isLargerThan(t.new IntString("0"))){
+            return it.value();
         }else{
-
+            return "impossible";
         }
     }
     public class IntString{
@@ -64,7 +79,7 @@ public class Testing{
             int[] inputStrAsArr = new int[inputStrCharArr.length];
 
             for(int i = inputStrCharArr.length - 1; i >= 0 ; i --){
-                inputStrAsArr[inputStrCharArr.length - i - 1] = inputStrCharArr[i];
+                inputStrAsArr[inputStrCharArr.length - i - 1] = Character.getNumericValue(inputStrCharArr[i]);
             }
 
             val = new int[inputStrAsArr.length];
@@ -72,6 +87,18 @@ public class Testing{
             for(int i = 0; i < val.length; i ++){
                 val[i] = inputStrAsArr[i];
             }
+
+            removeTrailingZeros();
+        }
+
+        public IntString(int[] value){
+            val = new int[value.length];
+
+            for(int i = 0; i < value.length; i ++){
+                val[i] = value[i];
+            }
+
+            removeTrailingZeros();
         }
 
         @Override
@@ -96,17 +123,25 @@ public class Testing{
             String outputVal = "";
 
             for(int i = val.length - 1; i >= 0; i --){
-                outputVal += Character.toString(val[i]);
+                outputVal += val[i];
             }
 
             return outputVal;
+        }
+
+        public int[] valueAsArr(){
+            return val;
         }
 
         public int size(){
             return val.length;
         }
 
-        public boolean largerThan(IntString otherInt){
+        public boolean isEven(){
+            return (val[0] % 2 == 0);
+        }
+
+        public boolean isLargerThan(IntString otherInt){
             if(this.size() > otherInt.size()){
                 return true;
             }else if(this.size() < otherInt.size()){
@@ -120,8 +155,82 @@ public class Testing{
             }
         }
 
-        public IntString subtract(IntString otherInt){
-            return this;
+        public void add(IntString otherString){
+            int[] thisVal = valueAsArr();
+            int[] otherVal = otherString.valueAsArr();
+            int[] resultVal;
+
+            if(thisVal.length > otherVal.length){
+                resultVal = new int[thisVal.length + 1];
+            }else{
+                resultVal = new int[otherVal.length + 1];
+            }
+
+            for(int i = 0; i < resultVal.length; i ++){
+                int sum = 0;
+
+                if(i < thisVal.length){
+                    sum += thisVal[i];
+                }
+
+                if(i < otherVal.length){
+                    sum += otherVal[i];
+                }
+
+                if(sum >= 10){
+                    sum -= 10;
+                    resultVal[i + 1] += 1;
+                }
+
+                resultVal[i] += sum;
+            }
+
+            val = resultVal;
+            removeTrailingZeros();
+        }
+
+        public void subtract(IntString otherInt){
+            removeTrailingZeros();
+            otherInt.removeTrailingZeros();
+            int[] otherVal = otherInt.valueAsArr();
+            int[] resultVal = new int[val.length];
+            
+            for(int i = 0; i < resultVal.length; i ++){
+                if(i < otherVal.length){
+                    resultVal[i] += (val[i] - otherVal[i]);
+                }else{
+                    resultVal[i] += val[i];
+                }
+
+                if(resultVal[i] < 0){
+                    resultVal[i + 1] -= 1;
+                    resultVal[i] *= -1;
+                    resultVal[i] = 10 - resultVal[i];
+                }
+            }
+            
+            val = resultVal;
+            removeTrailingZeros();
+        }
+
+        public void removeTrailingZeros(){
+            int newLength = val.length;
+
+            for(int i = val.length - 1; i >= 0; i --){
+                if(val[i] == 0){
+                    newLength --;
+                }else{
+                    break;
+                }
+            }
+
+            int[] newVal = new int[newLength];
+
+            for(int i = 0; i < newVal.length; i ++){
+                newVal[i] = val[i];
+            }
+
+            val = newVal;
         }
     }
 
