@@ -5,7 +5,7 @@ public class Testing{
         Scanner in = new Scanner(System.in);
 
         clearScreen();
-        
+
         while (true){
             System.out.println("Options: ");
             System.out.println("[G]earing up for destruction: ");
